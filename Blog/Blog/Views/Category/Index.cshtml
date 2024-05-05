@@ -17,6 +17,9 @@
         <thead>
             <tr>
                 <th>
+                    Order
+                </th>
+                <th>
                     Name 
                 </th>
                 <th>
@@ -28,6 +31,7 @@
             @foreach (var obj in Model.OrderBy(o => o.DisplayOrder))
             {
                 <tr>
+                    <td>@obj.DisplayOrder</td>
                     <td>@obj.Name</td>
                     <td>@obj.CategoryDescription</td>
                 </tr>
