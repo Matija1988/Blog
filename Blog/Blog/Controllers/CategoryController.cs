@@ -34,27 +34,35 @@ namespace Blog.Controllers
             var Categories = _context.Categories.ToList();
             int Order = 1;
 
-            List<int> OrderList = Categories.Select(s => s.DisplayOrder).Distinct().ToList();
+            List<int> OrderList = Categories.Select(s => s.DisplayOrder).ToList();
 
-            if(OrderList.Any(o => o.Equals(entity.DisplayOrder))) 
-            { 
-                
+            if(OrderList.Any(o => o.Equals(entity.DisplayOrder)) || entity.DisplayOrder == 0)
+            {
+                int Last = OrderList.Last();
                 OrderList.ForEach(o =>
                 {
-                    if (o.Equals(Order))
+                    if (o.Equals(entity.DisplayOrder))
+                    {         
+                        Order++;
+                    }
+
+                    if(o.Equals(Order))
                     {
                         Order++;
                     }
+                    
+                    if(Last == Order)
+                    {
+                        Order++;
+                    }
+
                 });
 
                 entity.DisplayOrder = Order;
 
             }
 
-            if (entity.DisplayOrder == 0)
-            {
-                entity.DisplayOrder = Order + Categories.Count;
-            }
+        
 
             if (entity.Name != null && entity.CategoryDescription != null)
             {
