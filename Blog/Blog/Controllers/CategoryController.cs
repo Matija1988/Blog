@@ -36,33 +36,48 @@ namespace Blog.Controllers
 
             List<int> OrderList = Categories.Select(s => s.DisplayOrder).ToList();
 
-            if(OrderList.Any(o => o.Equals(entity.DisplayOrder)) || entity.DisplayOrder == 0)
+            if (!OrderList.Any(o => o.Equals(entity.DisplayOrder)) && entity.DisplayOrder != 0)
             {
-                int Last = OrderList.Last();
-                OrderList.ForEach(o =>
-                {
-                    if (o.Equals(entity.DisplayOrder))
-                    {         
-                        Order++;
-                    }
-
-                    if(o.Equals(Order))
-                    {
-                        Order++;
-                    }
-                    
-                    if(Last == Order)
-                    {
-                        Order++;
-                    }
-
-                });
-
-                entity.DisplayOrder = Order;
-
+                entity.DisplayOrder = entity.DisplayOrder;
             }
+            else
+            {
 
-        
+                foreach (var category in Categories)
+                {
+
+                    if (OrderList.Any(o => o.Equals(entity.DisplayOrder)) || entity.DisplayOrder == 0)
+                    {
+                        Order++;
+                    }
+                    entity.DisplayOrder = Order + 1;
+                }
+            }
+            //if(OrderList.Any(o => o.Equals(entity.DisplayOrder)) || entity.DisplayOrder == 0)
+            //{
+            //    int Last = OrderList.Last();
+            //    OrderList.ForEach(o =>
+            //    {
+            //        if (o.Equals(entity.DisplayOrder))
+            //        {         
+            //            Order++;
+            //        }
+
+            //        if(o.Equals(Order))
+            //        {
+            //            Order++;
+            //        }
+
+            //        if(Last == Order)
+            //        {
+            //            Order++;
+            //        }
+
+            //    });
+
+            //    entity.DisplayOrder = Order;
+
+            //}
 
             if (entity.Name != null && entity.CategoryDescription != null)
             {
