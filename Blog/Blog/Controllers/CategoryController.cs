@@ -59,7 +59,7 @@ namespace Blog.Controllers
             {
                 _context.Categories.Add(entity);
                 _context.SaveChanges();
-
+                TempData["success"] = "Category created successfully!";
                 return RedirectToAction("Index");
             }
 
@@ -95,7 +95,7 @@ namespace Blog.Controllers
             if (!OrderList.Any(o => o.Equals(entity.DisplayOrder)) && entity.DisplayOrder > 0)
             {
                 entity.DisplayOrder = entity.DisplayOrder;
-            }
+            } 
             else
             {
                 foreach (var category in Categories)
@@ -112,7 +112,7 @@ namespace Blog.Controllers
             {
                 _context.Categories.Update(entity);
                 _context.SaveChanges();
-
+                TempData["success"] = "Category updated successfully!";
                 return RedirectToAction("Index");
             }
             return View();
@@ -138,7 +138,8 @@ namespace Blog.Controllers
             
             _context.Categories.Remove(entity);
             _context.SaveChanges();
-             return RedirectToAction("Index");           
+            TempData["success"] = "Category deleted successfully!";
+            return RedirectToAction("Index");           
         }
     }
 }
